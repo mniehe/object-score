@@ -2,12 +2,12 @@
 A simple way to score how well an object matches a model.
 
 ### Usage:
-- Install the library `npm install <TBD>`. 
+- Install the library `npm install object-score`. 
 - Optionally install the library [validator](https://github.com/chriso/validator.js) for a collection of pre-made validators using `npm install validator`.
 
 ```javascript
 const validator = require('validator');
-const { ScoringModel } = require('<TBD>');
+const { ScoringModel } = require('object-score');
 
 const EXAMPLE_DATA = [{
   username: 'jdiggity',
