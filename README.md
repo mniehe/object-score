@@ -56,8 +56,7 @@ EXAMPLE_DATA.forEach((user) => {
 });
 ```
 
-#### Output
-Without messages:
+#### Output without messages
 ```json
 [
   {
@@ -76,7 +75,7 @@ Without messages:
   }
 ]
 ```
-With messages:
+#### Output with messages
 ```json
 {
   "score": 1,
@@ -138,7 +137,7 @@ With messages:
 }
 ```
 
-### To do:
+### To do
 - Add way to handle nested objects
 - Choose the weighting distribution per validator as well as per field.
 
