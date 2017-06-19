@@ -52,16 +52,27 @@ class ScoringModel {
    */
   score(data, showMessages=false) {
     let score = 0;
+    let isObjectValid = true;
     const fieldResults = {};
 
     for (let field of this._fields) {
       const results = field.score(data[field.name]);
       score += results.score;
       fieldResults[field.name] = results;
+
+      // Check if one of the required validators failed
+      if (!results.valid) {
+        isObjectValid = false;
+      }
+    }
+
+    // If one of the required validators failed, mark object as 0
+    if (!isObjectValid) {
+      score = 0;
     }
 
     if (showMessages) {
-      return { score, fields: fieldResults };
+      return { score, fields: fieldResults, valid: isObjectValid };
     } else {
       return score;
     }
@@ -108,9 +119,10 @@ class ScoringField {
    * whether or not that value passes a validation.
    * @param {string} message Message to be returned if showMessages is enabled
    * during scoring.
+   * @param {boolean} [required=false] Is this validator required to pass.
    */
-  validator(func, message) {
-    this._validators.push({ func, message });
+  validator(func, message, required=false) {
+    this._validators.push({ func, message, required });
     return this;
   }
 
@@ -121,6 +133,7 @@ class ScoringField {
    */
   score(value) {
     let score = 0;
+    let isFieldValid = true;
     const messages = [];
     const weightPerValidator = this.weight / (this._validators.length + 1);
 
@@ -129,20 +142,30 @@ class ScoringField {
       // Value exists. Increase score for that
       score += weightPerValidator;
 
-      for (let { func, message } of this._validators) {
+      for (let { func, message, required } of this._validators) {
         const passed = func(value);
 
         if (passed) {
           score += weightPerValidator;
         } else if (message !== undefined && message !== null) {
           messages.push(message);
+
+          // If this validator is required, mark the field as invalid
+          if (required) {
+            isFieldValid = false;
+          }
         }
       }
     } else {
       messages.push(`Field ${this.name} is not defined.`);
     }
 
-    return { score, messages };
+    // If the field is invalid, set score to 0
+    if (!isFieldValid) {
+      score = 0;
+    }
+
+    return { score, messages, valid: isFieldValid };
   }
 }
 

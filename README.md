@@ -71,7 +71,7 @@ EXAMPLE_DATA.forEach((user) => {
     "username": "franci$",
     "firstName": "Frank",
     "email": "fakeaddress",
-    "score": 0.3833333333333333
+    "score": 0
   }
 ]
 ```
@@ -82,58 +82,70 @@ EXAMPLE_DATA.forEach((user) => {
   "fields": {
     "username": {
       "score": 0.2,
-      "messages": []
+      "messages": [],
+      "valid": true
     },
     "firstName": {
       "score": 0.15,
-      "messages": []
+      "messages": [],
+      "valid": true
     },
     "lastName": {
       "score": 0.15,
-      "messages": []
+      "messages": [],
+      "valid": true
     },
     "email": {
       "score": 0.2,
-      "messages": []
+      "messages": [],
+      "valid": true
     },
     "password": {
       "score": 0.3,
-      "messages": []
+      "messages": [],
+      "valid": true
     }
-  }
+  },
+  "valid": true
 }
 {
-  "score": 0.3833333333333333,
+  "score": 0,
   "fields": {
     "username": {
-      "score": 0.13333333333333333,
+      "score": 0,
       "messages": [
         "Username must be alphanumeric"
-      ]
+      ],
+      "valid": false
     },
     "firstName": {
       "score": 0.15,
-      "messages": []
+      "messages": [],
+      "valid": true
     },
     "lastName": {
       "score": 0,
       "messages": [
         "Field lastName is not defined."
-      ]
+      ],
+      "valid": true
     },
     "email": {
       "score": 0.1,
       "messages": [
         "Email must be a valid email address"
-      ]
+      ],
+      "valid": true
     },
     "password": {
       "score": 0,
       "messages": [
         "Field password is not defined."
-      ]
+      ],
+      "valid": true
     }
-  }
+  },
+  "valid": false
 }
 ```
 
