@@ -31,12 +31,13 @@ class ScoringModel {
    * @param {string} name Exact name of the field to score.
    * @param {float} [weight=1.0] Max score possible from this field. This weight will
    * be divided equally between all validators on this field.
+   * @param {boolean} [required=false] Is this field required to exist?
    */
-  field(name, weight=1.0) {
+  field(name, weight=1.0, required=false) {
     let field = this._fields.find(f => f.name === name);
 
     if (field === undefined) {
-      field = new ScoringField(name, weight);
+      field = new ScoringField(name, weight, required);
       this._fields.push(field);
     }
 
@@ -95,10 +96,12 @@ class ScoringField {
    * @param {string} name Name of the key to for this field.
    * @param {float} [weight=1.0] Max score possible from this field. This weight will
    * be divided equally between all validators on this field.
+   * @param {boolean} [required=false] Is this field required to exist?
    */
-  constructor(name, weight=1.0) {
+  constructor(name, weight=1.0, required=false) {
     this.name = name;
     this.weight = weight;
+    this.required = required;
     this._validators = [];
   }
 
