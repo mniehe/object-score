@@ -67,6 +67,9 @@ describe('ScoringField', function() {
       const field = new ScoringField('Test');
 
       expect(field.setWeight.bind(field, 'string')).to.throw(TypeError);
+      
+      expect(field.setWeight.bind(field, 1.5)).to.not.throw(TypeError);
+      expect(field.setWeight.bind(field, 1)).to.not.throw(TypeError);
     });
   });
 });
