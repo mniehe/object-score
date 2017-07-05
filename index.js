@@ -161,6 +161,10 @@ class ScoringField {
       }
     } else {
       messages.push(`Field ${this.name} is not defined.`);
+
+      if (this.required) {
+        isFieldValid = false;
+      }
     }
 
     // If the field is invalid, set score to 0
