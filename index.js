@@ -111,6 +111,10 @@ class ScoringField {
    * @param {float} value Set weight of this field to value.
    */
   setWeight(value) {
+    if (typeof value !== 'number') {
+      throw new TypeError('Weight passed to setWeight() needs to be a number');
+    }
+    
     this.weight = value;
     return this;
   }
